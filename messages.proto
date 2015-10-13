@@ -74,6 +74,10 @@ enum MessageType {
 	MessageType_DebugLinkStop = 103 [(wire_debug_in) = true];
 	MessageType_DebugLinkLog = 104 [(wire_debug_out) = true];
 	MessageType_DebugLinkFillConfig = 105 [(wire_debug_out) = true];
+	MessageType_U2FInit = 200 [(wire_in) = true];
+	MessageType_U2FGetCounter = 201 [(wire_in) = true];
+	MessageType_U2FCounter = 202 [(wire_out) = true];
+	MessageType_U2FSetEntry = 203 [(wire_in) = true];
 }
 
 ////////////////////
@@ -692,3 +696,22 @@ message DebugLinkLog {
  */
 message DebugLinkFillConfig {
 }
+
+message U2FInit {
+        required bytes u2f_attestation_key = 1;        // U2F : attestation private key
+        required bytes u2f_attestation_cert = 2;       // U2F : attestation certificate
+        required uint32 u2f_counter = 3;               // U2F : counter
+}
+
+message U2FGetCounter {
+}
+
+message U2FCounter {
+	required uint32 u2f_counter = 1;
+}
+
+message U2FSetEntry {
+	required string uri = 1;
+	required string name = 2;	
+}
+
